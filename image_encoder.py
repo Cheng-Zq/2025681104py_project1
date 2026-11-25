@@ -14,9 +14,16 @@ CONFIG_PATH = Path(__file__).with_name('config.json')
 
 
 def load_config(path=None):
-    """Read the checkpoint configuration; geometry comes from this file."""
-    with open(Path(path) if path is not None else CONFIG_PATH, encoding='utf-8') as handle:
-        return json.load(handle)
+    """Read the checkpoint configuration; geometry comes from this file.
+
+    Returns None when the file is absent so callers can fall back to the
+    shapes stored in the weight archive.
+    """
+    try:
+        with open(Path(path) if path is not None else CONFIG_PATH, encoding='utf-8') as handle:
+            return json.load(handle)
+    except OSError:
+        return None
 
 
 def count_layers(weights):
@@ -108,16 +115,19 @@ class TransformerBlock:
 class ImageEncoder:
     def __init__(self, weights, config=None):
         config = load_config() if config is None else config
+        if config is None:
+            config = {}
         patch_weight = weights['visual.conv1.weight']  # [D,3,p,p]
         self.patch_size = int(config.get('patch_size', patch_weight.shape[-1]))
         self.channels = int(config.get('channels', patch_weight.shape[1]))
-        self.image_size = int(config.get('image_size', 224))
         width = patch_weight.shape[0]
         heads = int(config.get('heads', 12))
 
         self.patch_weight = patch_weight.reshape(width, -1)  # [D,3*p*p]
         self.cls = weights['visual.class_embedding'].reshape(1, 1, width)
         self.position = weights['visual.positional_embedding']  # [tokens,width]
+        grid = int(round((self.position.shape[0] - 1) ** 0.5))
+        self.image_size = int(config.get('image_size', grid * self.patch_size))
         expected_tokens = (self.image_size // self.patch_size) ** 2 + 1
         if self.position.shape[0] != expected_tokens:
             raise ValueError(f'positional embedding holds {self.position.shape[0]} tokens, '
