@@ -1,0 +1,5 @@
+# 编码器、预处理与校验所需；实测组合为 Python 3.13.7 / NumPy 2.5.4 / Pillow 13.0.0
+numpy>=1.24,<3
+Pillow>=9.2,<14
+# 仅 lecture-demos/ 中的演示脚本使用
+imageio>=2.31,<3

@@ -1,0 +1,24 @@
+# 课程提供的 311 MB 权重，不入库（从课程附件获取）
+weights/
+
+# 生成的输出文件
+output_tokens.npz
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 临时脚本与页面预览
+_*.py
+_*.txt
+_*.png
+_preview*.pdf
+
+# 报告 PDF（如需随仓库发布，删除此行）
+*.pdf
+
+# 课程材料：公开前需确认课程是否允许外传；不确定时保持不入库
+lecture-demos/
+practice/
+PPT-CODE-MAP.txt
+SOURCE-MANIFEST.json
