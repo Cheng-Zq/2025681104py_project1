@@ -1,8 +1,8 @@
-# 基于 NumPy 的 OpenCLIP ViT-B-32 图像编码器
+﻿# 基于 NumPy 的 OpenCLIP ViT-B-32 图像编码器
 
 用纯 NumPy 复现 OpenCLIP ViT-B-32 图像塔的前向计算：输入 `[B,3,224,224]` 的预处理图像批次，输出 `[B,512]` 的 L2 归一化图像 token。仓库包含补全后的编码器实现、分阶段数值校验脚本、误差绘图脚本，以及课程提供的权重与图片资源说明。
 
-仓库地址：<https://github.com/Cheng-Zq/2025681104project1>
+仓库地址：<https://github.com/Cheng-Zq/2025681104py_project1>
 
 > 作业提交：实验报告按深圳大学实验报告模板排版，含个人信息，通过畅课平台单独提交；本仓库只保留报告的 Markdown 版本（`实验报告.md`）与全部代码、数据、校验结果。
 
@@ -76,7 +76,7 @@ weights/              图像编码器权重（不入库，从课程附件获取�
 
 ## 仓库地址
 
-<https://github.com/Cheng-Zq/2025681104project1>（公开仓库，助教与老师可直接访问）
+<https://github.com/Cheng-Zq/2025681104py_project1>（公开仓库，助教与老师可直接访问）
 
 ## 提交记录
 
